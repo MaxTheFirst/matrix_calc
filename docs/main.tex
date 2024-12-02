@@ -1,0 +1,125 @@
+\documentclass[a4paper, 14pt]{article}
+\input{preamble.tex}
+
+\title{Калькулятор для матриц.}
+\date{}
+
+\begin{document}
+\maketitle
+\section{UI.}
+\begin{enumerate}
+    \item Выбор действия (найти определитель, найти обратную). 
+    \item Выбор порядка матрицы (2*2, 3*3).
+    \item При выборе появляется соответствующая таблица полей для ввода. 
+    \item Кнопка "Вычислить".
+    \item (Опционально) окно предпросмотра Latex.
+    \item Текстовое поле с кодом.
+    \item Кнопка "Копировать".
+\end{enumerate}
+\section{Вычисление определителя.}
+\texttt{2-й порядок} -- считаем по формуле, возвращаем одно значение. \\ 
+\texttt{3-й порядок} -- раскладываем по первой строке, возвращаем миноры элементов первой строки, и само значение. \\
+\section{Вычисление обратной.} 
+Длаем $(A|E)$ и с помощью ЭП-строк приводим к $(E|A^{-1})$. Возвращаем матрицу на каждом этапе. \\ \\
+При дробных значениях можно возвращать кортеж $(a, b)$. 
+\section{Вывод в Latex.} 
+\subsection{}
+\[
+    \begin{vmatrix}
+        1&2 \\ 3&4
+    \end{vmatrix}
+    =1\cdot 4 - 2 \cdot 3=-2
+\]
+\subsection{}
+\[
+    \begin{vmatrix}
+        1&2&3 \\ 4&5&6 \\ 7&8&9
+    \end{vmatrix}
+    =1 \cdot
+    \begin{vmatrix}
+        5&6 \\ 8&9
+    \end{vmatrix}
+    -2 \cdot
+    \begin{vmatrix}
+        4&6 \\ 7&9
+    \end{vmatrix}
+    +3 \cdot
+    \begin{vmatrix}
+        4&5 \\ 7&8
+    \end{vmatrix}
+    =0
+\]
+\subsection{}
+
+\[
+(A | E) = \begin{bmatrix}
+1 & 2 & 3 & 1 & 0 & 0 \\
+6 & 7 & 8 & 0 & 1 & 0 \\
+11 & 12 & 13 & 0 & 0 & 1
+\end{bmatrix}
+\]
+
+\[
+\begin{bmatrix}
+1 & 2 & 3 & 1 & 0 & 0 \\
+0 & -5 & -10 & -6 & 1 & 0 \\
+11 & 12 & 13 & 0 & 0 & 1
+\end{bmatrix}
+\]
+
+\[
+\begin{bmatrix}
+1 & 2 & 3 & 1 & 0 & 0 \\
+0 & -5 & -10 & -6 & 1 & 0 \\
+0 & -10 & -28 & -11 & 0 & 1
+\end{bmatrix}
+\]
+
+\[
+\begin{bmatrix}
+1 & 2 & 3 & 1 & 0 & 0 \\
+0 & 1 & 2 & \frac{6}{5} & -\frac{1}{5} & 0 \\
+0 & -10 & -28 & -11 & 0 & 1
+\end{bmatrix}
+\]
+
+\[
+\begin{bmatrix}
+1 & 2 & 3 & 1 & 0 & 0 \\
+0 & 1 & 2 & \frac{6}{5} & -\frac{1}{5} & 0 \\
+0 & 0 & -8 & -1 & 2 & 1
+\end{bmatrix}
+\]
+
+\[
+\begin{bmatrix}
+1 & 2 & 3 & 1 & 0 & 0 \\
+0 & 1 & 2 & \frac{6}{5} & -\frac{1}{5} & 0 \\
+0 & 0 & 1 & \frac{1}{8} & -\frac{1}{4} & -\frac{1}{8}
+\end{bmatrix}
+\]
+
+\[
+\begin{bmatrix}
+1 & 2 & 3 & 1 & 0 & 0 \\
+0 & 1 & 0 & \frac{43}{40} & \frac{3}{20} & \frac{1}{8} \\
+0 & 0 & 1 & \frac{1}{8} & -\frac{1}{4} & -\frac{1}{8}
+\end{bmatrix}
+\]
+
+\[
+\begin{bmatrix}
+1 & 0 & 0 & \frac{3}{4} & \frac{1}{2} & \frac{1}{4} \\
+0 & 1 & 0 & \frac{43}{40} & \frac{3}{20} & \frac{1}{8} \\
+0 & 0 & 1 & \frac{1}{8} & -\frac{1}{4} & -\frac{1}{8}
+\end{bmatrix}
+\]
+
+\[
+A^{-1} = \begin{bmatrix}
+\frac{3}{4} & \frac{1}{2} & \frac{1}{4} \\
+\frac{43}{40} & \frac{3}{20} & \frac{1}{8} \\
+\frac{1}{8} & -\frac{1}{4} & -\frac{1}{8}
+\end{bmatrix}
+\]
+\end{document}

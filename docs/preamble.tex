@@ -1,0 +1,96 @@
+\usepackage[T2A]{fontenc}			      % кодировка
+\usepackage[utf8]{inputenc}               % кодировка исходного текста
+\usepackage[english, russian]{babel}   % локализация и переносы
+
+
+%%% Страница 
+\usepackage{extsizes} % Возможность сделать 14-й шрифт
+\usepackage{geometry}  
+\geometry{left=20mm,right=20mm,top=25mm,bottom=30mm} % задание полей текста
+
+
+%%%  Текст
+\setlength\parindent{0pt}         % Устанавливает длину красной строки 0pt
+\sloppy                                        % строго соблюдать границы текста
+\linespread{1.3}                           % коэффициент межстрочного интервала
+\setlength{\parskip}{0.5em}                % вертик. интервал между абзацами
+%\setcounter{secnumdepth}{0}                % отключение нумерации разделов
+\usepackage{multicol}				          % Для текста в нескольких колонках
+%\usepackage{soul}
+\usepackage{soulutf8} % Модификаторы начертания
+
+
+%%% Гиппер ссылки
+\usepackage{hyperref}
+\usepackage[usenames,dvipsnames,svgnames,table,rgb]{xcolor}
+\hypersetup{				% Гиперссылки
+	unicode=true,           % русские буквы в раздела PDF\\
+	pdfstartview=FitH,
+	pdftitle={Заголовок},   % Заголовок
+	pdfauthor={Автор},      % Автор
+	pdfsubject={Тема},      % Тема
+	pdfcreator={Создатель}, % Создатель
+	pdfproducer={Производитель}, % Производитель
+	pdfkeywords={keyword1} {key2} {key3}, % Ключевые слова
+	colorlinks=true,       	% false: ссылки в рамках; true: цветные ссылки
+	linkcolor=blue,          % внутренние ссылки
+	citecolor=green,        % на библиографию
+	filecolor=magenta,      % на файлы
+	urlcolor=NavyBlue,           % на URL
+}
+
+
+%%% Для формул
+\usepackage{amsmath}          
+\usepackage{amssymb}
+
+
+\usepackage{amsthm}  % for theoremstyle
+
+\theoremstyle{plain} % Это стиль по умолчанию, его можно не переопределять.
+\newtheorem*{theorem}{Теорема}
+\newtheorem*{prop}{Утверждение}
+\newtheorem*{lemma}{Лемма}
+\newtheorem*{sug}{Предположение}
+
+\theoremstyle{definition} % "Определение"
+\newtheorem*{Def}{Определение}
+\newtheorem*{corollary}{Следствие}
+\newtheorem{problem}{Задача}[section]
+
+\theoremstyle{remark} % "Примечание"
+\newtheorem*{nonum}{Решение}
+\newtheorem*{defenition}{Def}
+\newtheorem*{example}{Пример}
+\newtheorem*{note}{Замечание}
+
+
+%%% Работа с картинками
+\usepackage{graphicx}                           % Для вставки рисунков
+\graphicspath{{images/}{images2/}}        % папки с картинками
+\setlength\fboxsep{3pt}                    % Отступ рамки \fbox{} от рисунка
+\setlength\fboxrule{1pt}                    % Толщина линий рамки \fbox{}
+\usepackage{wrapfig}                     % Обтекание рисунков текстом
+\graphicspath{{images/}}                     % Путь к папке с картинками
+
+
+%%% облегчение математических обозначений
+
+
+\newcommand{\all}{\forall}
+\newcommand{\ex}{\exists}
+
+\newcommand{\RR}{\mathbb{R}}
+\newcommand{\NN}{\mathbb{N}}
+%\newcommand{\C}{\mathbb{C}}             % команда уже определена где-то)
+\newcommand{\ZZ}{\mathbb{Z}}
+\newcommand{\EE}{\mathbb{E}}
+\newcommand{\brackets}[1]{\left({#1}\right)}      % автоматический размер скобочек
+% Здесь можно добавить ваши индивидуальные сокращения  
+
+\makeatletter
+\def\@seccntformat#1{\@ifundefined{#1@cntformat}%
+   {\csname the#1\endcsname\space}%    default
+   {\csname #1@cntformat\endcsname}}%  enable individual control
+\def\section@cntformat{\thesection.\space} % section-level
+\makeatother
