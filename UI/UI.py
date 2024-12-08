@@ -7,10 +7,10 @@ import sympy as sp
 class MatrixCalculator:
     def __init__(self, window):
         self.window_width = "1200"
-        self.window_height = "600"
+        self.window_height = "800"
         self.total_background_color = "#ffeed3"
         self.button_background_color = "#ffebbe"
-        self.total_font_name = "ComicSansMS"
+        self.total_font_name = "DejaVu Sans Condensed"
         self.total_big_font_size = 24
         self.total_middle_font_size = 20
         self.total_small_font_size = 16
