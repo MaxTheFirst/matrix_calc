@@ -1,5 +1,5 @@
 import tkinter as tk
-from tkinter import messagebox
+from tkinter import messagebox, simpledialog
 
 import sympy as sp
 
@@ -18,6 +18,7 @@ class MatrixCalculator:
 
         self.action_var = tk.StringVar(value="determinant")
         self.size_var = tk.IntVar(value=2)
+        self.size_type = tk.StringVar(value="2x2")
 
         self.matrix = []
         self.latex_code = "Empty"
@@ -41,10 +42,10 @@ class MatrixCalculator:
         action_frame = tk.Frame(self.window, bg=self.total_background_color)
         tk.Radiobutton(action_frame, text="Найти определитель", padx=2, pady=4, bg=self.total_background_color,
                        font=(self.total_font_name, self.total_small_font_size), variable=self.action_var,
-                       value="determinant", command=self.update_ui).grid(row=0, column=0, stick="ew")
+                       value="determinant" """, command=self.update_ui""").grid(row=0, column=0, stick="ew")
         tk.Radiobutton(action_frame, text="Найти обратную", padx=2, pady=4, bg=self.total_background_color,
                        font=(self.total_font_name, self.total_small_font_size), variable=self.action_var,
-                       value="inverse", command=self.update_ui).grid(row=0, column=1, stick="ew")
+                       value="inverse" """, command=self.update_ui""").grid(row=0, column=1, stick="ew")
         action_frame.pack()
 
         # Выбор порядка матрицы
@@ -52,11 +53,15 @@ class MatrixCalculator:
                  font=(self.total_font_name, self.total_big_font_size)).pack()
         size_frame = tk.Frame(self.window, bg=self.total_background_color)
         tk.Radiobutton(size_frame, text="2x2", padx=2, pady=2, bg=self.total_background_color,
-                       font=(self.total_font_name, self.total_small_font_size), variable=self.size_var, value=2,
+                       font=(self.total_font_name, self.total_small_font_size), variable=self.size_type, value="2x2",
                        command=self.update_ui).grid(row=0, column=0, stick="ew")
         tk.Radiobutton(size_frame, text="3x3", padx=2, pady=2, bg=self.total_background_color,
-                       font=(self.total_font_name, self.total_small_font_size), variable=self.size_var, value=3,
+                       font=(self.total_font_name, self.total_small_font_size), variable=self.size_type, value="3x3",
                        command=self.update_ui).grid(row=0, column=1, stick="ew")
+        tk.Radiobutton(size_frame, text="nxn", padx=2, pady=2, bg=self.total_background_color, variable=self.size_type,
+                       value="nxn",
+                       font=(self.total_font_name, self.total_small_font_size),
+                       command=self.get_matrix_size).grid(row=0, column=2, stick="ew")
         size_frame.pack()
 
         self.matrix_frame = tk.Frame(self.window)
@@ -80,6 +85,15 @@ class MatrixCalculator:
         self.copy_button.pack()
 
         self.update_ui()
+
+    def get_matrix_size(self):
+        """Функция для получения размера матрицы от пользователя."""
+        size = simpledialog.askinteger("Введите размер матрицы n от 2 до 25", "Введите размер n x n:")
+        if size is not None and 2 <= size <= 25:
+            self.size_var.set(size)
+            self.update_ui()
+        elif size < 2 or size > 25:
+            messagebox.showerror("Ошибка", "Неверный размер матрицы")
 
     def update_ui(self):
         for widget in self.matrix_frame.winfo_children():
