@@ -1,6 +1,7 @@
 import tkinter as tk
 from tkinter import messagebox, simpledialog
 
+import numpy as np
 import sympy as sp
 
 
@@ -42,10 +43,10 @@ class MatrixCalculator:
         action_frame = tk.Frame(self.window, bg=self.total_background_color)
         tk.Radiobutton(action_frame, text="Найти определитель", padx=2, pady=4, bg=self.total_background_color,
                        font=(self.total_font_name, self.total_small_font_size), variable=self.action_var,
-                       value="determinant" """, command=self.update_ui""").grid(row=0, column=0, stick="ew")
+                       value="determinant").grid(row=0, column=0, stick="ew")
         tk.Radiobutton(action_frame, text="Найти обратную", padx=2, pady=4, bg=self.total_background_color,
                        font=(self.total_font_name, self.total_small_font_size), variable=self.action_var,
-                       value="inverse" """, command=self.update_ui""").grid(row=0, column=1, stick="ew")
+                       value="inverse").grid(row=0, column=1, stick="ew")
         action_frame.pack()
 
         # Выбор порядка матрицы
@@ -88,7 +89,7 @@ class MatrixCalculator:
 
     def get_matrix_size(self):
         """Функция для получения размера матрицы от пользователя."""
-        size = simpledialog.askinteger("Введите размер матрицы n от 2 до 25", "Введите размер n x n:")
+        size = simpledialog.askinteger("Ввод размера матрицы.", "Введите размер матрицы n от 2 до 25:")
         if size is not None and 2 <= size <= 25:
             self.size_var.set(size)
             self.update_ui()
@@ -96,6 +97,10 @@ class MatrixCalculator:
             messagebox.showerror("Ошибка", "Неверный размер матрицы")
 
     def update_ui(self):
+        if self.size_type.get() == "2x2":
+            self.size_var.set(2)
+        if self.size_type.get() == "3x3":
+            self.size_var.set(3)
         for widget in self.matrix_frame.winfo_children():
             widget.destroy()
 
@@ -130,7 +135,9 @@ class MatrixCalculator:
             self.result_text.insert(tk.END, f"Определитель: {determinant:.2f}\n\nLatex код:\n{self.latex_code}")
         else:
             try:
-                inv_matrix = sp.Matrix(matrix_data).inv()
+                # np.matrix(matrix_data)
+                inv_matrix = np.linalg.inv(np.matrix(matrix_data))
+                inv_matrix = inv_matrix.round(decimals=10)
                 # self.result_value = inv_matrix.tolist()
                 self.latex_code = sp.latex(inv_matrix)
                 self.result_text.delete(1.0, tk.END)
