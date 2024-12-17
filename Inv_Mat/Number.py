@@ -1,8 +1,11 @@
 from math import gcd
 class Number:
-    def __init__(self, new_string = ""):
+    def __init__(self, new_string):
+        new_string = str(new_string)
         self.__numerator = 0
         self.__denominator = 1
+        if new_string == "":
+            return
         recount = ""
         kol_point = 0
         kol_slash = 0

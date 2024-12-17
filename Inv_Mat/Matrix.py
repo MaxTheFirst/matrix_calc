@@ -109,7 +109,7 @@ class Matrix2(Matrix):
     def get_inverse_matrix(self):
         if self.get_determinant() == Number("0"):
             raise ValueError("Некорректное значение")
-        divider = self.get_determinant()
+        divider = Number("1") / self.get_determinant()
         inverse_matrix = np.array(self._array, copy = True)
         inverse_matrix[0][0], inverse_matrix[1][1] = inverse_matrix[1][1], inverse_matrix[0][0]
         inverse_matrix[0][1] *= Number("-1")
@@ -137,7 +137,6 @@ class Matrix2(Matrix):
         for i in range(self._lines):
             for j in range(self._columns):
                 inverse_matrix[i][j] *= divider
-        print(Matrix2(inverse_matrix))
         return Matrix2(inverse_matrix)
 
 class Matrix3(Matrix):
@@ -161,9 +160,6 @@ class Matrix3(Matrix):
         return main_diagonal + secondary_diagonal
     def get_float_determinant(self):
         return float(self.get_determinant())
-
-
-
 
 
 
