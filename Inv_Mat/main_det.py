@@ -14,6 +14,4 @@ with open("input.txt", "r") as f, open("output.txt", "w") as w:
     elif n == 3 and m == 3:
         answer = Matrix3(a)
     print(answer)
-    print(answer.get_inverse_matrix_with_comment())
-    print(answer.get_determinant())
 
