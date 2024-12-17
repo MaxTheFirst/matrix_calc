@@ -134,6 +134,7 @@ class Matrix2(Matrix):
               inverse_matrix[0][1], ' ' * (kol - len(str(inverse_matrix[0][1])) + 1), ')', sep = "")
         print(' ' * (len(str(divider)) + 3), "( ", inverse_matrix[1][0], ' ' * (kol - len(str(inverse_matrix[1][0])) + 1),
               inverse_matrix[1][1], ' ' * (kol - len(str(inverse_matrix[1][1])) + 1), ')', sep = "")
+        print()
         for i in range(self._lines):
             for j in range(self._columns):
                 inverse_matrix[i][j] *= divider
