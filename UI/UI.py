@@ -81,6 +81,19 @@ class MatrixCalculator:
 
         self.update_ui()
 
+        self.determinant_func = None
+        self.reverse_func = None
+    
+    def determinant_callback(self):
+        def wrapper(func):
+            self.determinant_func = func
+        return wrapper
+    
+    def reverse_callback(self):
+        def wrapper(func):
+            self.reverse_func = func
+        return wrapper
+
     def update_ui(self):
         for widget in self.matrix_frame.winfo_children():
             widget.destroy()
@@ -108,35 +121,23 @@ class MatrixCalculator:
             matrix_data.append(row_data)
 
         if self.action_var.get() == "determinant":
-            sympy_matrix = sp.Matrix(matrix_data)
-            determinant = sympy_matrix.det()
-            # self.result_value = determinant.evalf()
-            self.latex_code = sp.latex(determinant)
+            self.latex_code = self.determinant_func(matrix_data)
             self.result_text.delete(1.0, tk.END)
-            self.result_text.insert(tk.END, f"Определитель: {determinant:.2f}\n\nLatex код:\n{self.latex_code}")
+            self.result_text.insert(tk.END, self.latex_code)
         else:
             try:
-                inv_matrix = sp.Matrix(matrix_data).inv()
-                # self.result_value = inv_matrix.tolist()
-                self.latex_code = sp.latex(inv_matrix)
+                self.latex_code = self.reverse_func(matrix_data)
                 self.result_text.delete(1.0, tk.END)
-                self.result_text.insert(tk.END,
-                                        f"Обратная матрица:\n{inv_matrix.tolist()}\n\nLatex код:\n{self.latex_code}")
+                self.result_text.insert(tk.END, self.latex_code)
             except ValueError:
                 messagebox.showerror("Ошибка", "Матрица вырождена, обратная матрица не существует.")
 
     def preview_latex(self):
         self.result_text.delete(1.0, tk.END)
-        self.result_text.insert(tk.END, f"Latex код:\n{self.latex_code}")
+        self.result_text.insert(tk.END, self.latex_code)
 
     def copy_result(self):
         self.window.clipboard_clear()
         self.window.clipboard_append(self.result_text.get(1.0, tk.END))
         # возможно имело в виду это:
         # self.window.clipboard_append(self.result_value)
-
-
-if __name__ == "__main__":
-    window = tk.Tk()
-    app = MatrixCalculator(window)
-    window.mainloop()

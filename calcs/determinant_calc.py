@@ -4,7 +4,7 @@ import numpy
 class DeterminantCalc():
     @staticmethod
     def get_det(array):
-        return '%g' % round(numpy.linalg.det(array), 6)
+        return numpy.linalg.det(array)
     
     @staticmethod
     def get_matrix_minor(array, i, j):
