@@ -56,7 +56,7 @@ class Matrix:
         ordinary_matrix = np.array(self._array, copy = True)
         for i in range(self._lines):
             if ordinary_matrix[i][i] == Number("0"):
-                for j in range(self._lines):
+                for j in range(i, self._lines):
                     if ordinary_matrix[j][i] != Number("0"):
                         ordinary_matrix[i] += ordinary_matrix[j]
                         inverse_matrix[i] += inverse_matrix[j]
@@ -79,7 +79,7 @@ class Matrix:
         ordinary_matrix = np.array(self._array, copy = True)
         for i in range(self._lines):
             if ordinary_matrix[i][i] == Number("0"):
-                for j in range(self._lines):
+                for j in range(i, self._lines):
                     if ordinary_matrix[j][i] != Number("0"):
                         ordinary_matrix[i] += ordinary_matrix[j]
                         inverse_matrix[i] += inverse_matrix[j]
@@ -90,7 +90,7 @@ class Matrix:
                 ordinary_matrix[i] /= ordinary_matrix[i][i]
                 get_answer(ordinary_matrix, inverse_matrix)
             for j in range(self._lines):
-                if j == i:
+                if j == i or ordinary_matrix[j][i] == Number("0"):
                     continue
                 inverse_matrix[j] -= inverse_matrix[i] * ordinary_matrix[j][i]
                 ordinary_matrix[j] -= ordinary_matrix[i] * ordinary_matrix[j][i]
@@ -134,6 +134,7 @@ class Matrix2(Matrix):
               inverse_matrix[0][1], ' ' * (kol - len(str(inverse_matrix[0][1])) + 1), ')', sep = "")
         print(' ' * (len(str(divider)) + 3), "( ", inverse_matrix[1][0], ' ' * (kol - len(str(inverse_matrix[1][0])) + 1),
               inverse_matrix[1][1], ' ' * (kol - len(str(inverse_matrix[1][1])) + 1), ')', sep = "")
+        print()
         for i in range(self._lines):
             for j in range(self._columns):
                 inverse_matrix[i][j] *= divider

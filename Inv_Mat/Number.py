@@ -46,7 +46,7 @@ class Number:
     def __str__(self):
         if self.__denominator == 1:
             return str(self.__numerator)
-        return str(self.__numerator) + " / " + str(self.__denominator)
+        return str(self.__numerator) + "/" + str(self.__denominator)
     def __add__(self, other):
         return Number(str(self.__numerator * other.__denominator + self.__denominator * other.__numerator) + '/' +
                       str(self.__denominator * other.__denominator))

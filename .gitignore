@@ -4,4 +4,8 @@ docs/main.fls
 docs/main.log
 docs/main.out
 docs/main.synctex.gz
+.vscode
+Inv_Mat\.idea
+
+*.dvi
 *.pyc
